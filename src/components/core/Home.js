@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import SingleBlog from './../Blogs/SingleBlog'
-import { Suggestions } from '../Blogs/Suggestions'
+import Blog from '../Blogs/Blog'
 import { listBlogs } from '../admin/blog/api-blog'
+import  RelatedBlog  from '../Blogs/RelatedBlog'
+import { Spinner } from '../Spinner'
+
 
 
 
 export default function Home() {
   
-  const [suggestions, setSuggestions] = useState([])
-  const [suggestionTitle, setSuggestionTitle] = useState('Related Post')
- 
+  const [blogs, setBlogs] = useState([])
+  // const [suggestionTitle, setSuggestionTitle] = useState('Related Post')
+  const [isLoading, setIsLoading] = useState(<Spinner/>)
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
@@ -19,7 +22,7 @@ export default function Home() {
       if (data && data.error) {
         console.log(data.error)
       } else {
-        setSuggestions(data)
+        setBlogs(data)
       }
     })
     return function cleanup(){
@@ -30,6 +33,7 @@ export default function Home() {
 
     <div>
       <Header />
+      
       <section className="showcase">
         <div className="container grid">
             <div className="showcase-text">
@@ -39,7 +43,8 @@ export default function Home() {
             </div>
             <div className="showcase-form card">
                 <h2>Latest Post</h2>
-                <SingleBlog />
+                {isLoading ? (<SingleBlog />): null}
+                
             </div>
         </div>
       </section>
@@ -52,9 +57,22 @@ export default function Home() {
 
               <div className="grid grid-3 text-center my-4">
                   <div>
-                      <Suggestions blogs={suggestions} title='Related Posts' />
+                  <div className="lds-roller">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
                   </div>
-                 
+                   <Blog />
+                  </div>
+
+                <div>
+                  {/* <RelatedBlog /> */}
+                </div>
               </div>
           </div>
       </section>

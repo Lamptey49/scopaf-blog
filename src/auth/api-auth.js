@@ -1,12 +1,13 @@
 import axios from 'axios'
 const signin = async(user) => {
     try {
-        let response = await axios.post('http://localhost:8000/auth/signin', {
+        let response = await axios.post('/auth/signin', {
             method:'POST',
             mode:'cors',
             headers:{
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             credentials:'include',
             body:JSON.stringify(user)

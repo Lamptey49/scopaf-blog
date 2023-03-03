@@ -20,8 +20,8 @@ export default function Signin(props) {
         redirectToReferer: false
     })
     const handleChange =  event => {
-        const value =  event.target.value 
-        setValues({  value:value})
+      const value =  event.target.value 
+      setValues({  value:value})
     }
     // const { setAuth } = useContext(AuthContext)
     const navigate = useNavigate()

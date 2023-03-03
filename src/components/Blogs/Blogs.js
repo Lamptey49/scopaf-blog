@@ -1,9 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-export const Blogs = (props) => {
+// import PropTypes from 'prop-types'
+ const Blogs = (props) => {
   return (
     <div>
-        {props.blogs.length > 0 ? (
+        {props.blog && props.blogs.length > 0 ? (
             <div>
                 {props.blogs.map((blog,i) =>(
                       <div className='container'>
@@ -63,7 +63,7 @@ export const Blogs = (props) => {
     </div>
   )
 }
-
-Blogs.propTypes = {
-    blogs: PropTypes.array.isRequired
-}
+export default Blogs 
+// Blogs.propTypes = {
+//     blogs: PropTypes.array.isRequired
+// }

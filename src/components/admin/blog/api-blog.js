@@ -17,7 +17,7 @@ const create = async ( credentials,  blog )=>{
         return console.log(err)
     }
 }
-const  list = async (params)=> {
+const  list = async (params, signal)=> {
     const query = queryString.stringify(params)
     
     try {
@@ -33,7 +33,7 @@ const  list = async (params)=> {
 const read = async( params, signal) => {
     try{
 
-       let response =  await fetch(`http://localhost:4000/api/blogs/:${params.blogId}`, {
+       let response =  await fetch(`/api/blogs/:${params.blogId}`, {
             method:'GET',
             headers:{
                 'Accept':'Content-Type',
@@ -48,8 +48,8 @@ const read = async( params, signal) => {
        
 }
 
-const listBlogs = async() => {
-    await fetch('http://localhost:4000/api/blogs/by', {
+const listBlogs = async(signal) => {
+    await fetch('/api/blogs/by', {
         method:'GET',
         headers:{
             'Accept':'Content-Type'

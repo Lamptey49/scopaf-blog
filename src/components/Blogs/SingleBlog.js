@@ -6,9 +6,13 @@ const SingleBlog = (props) => {
     const [blog, setBlog] = useState([])
     // const navigate = useNavigate()
     
-    const fetchSingleData = async() => {
-        // let blogId = props.blogId;
-        await fetch('http://localhost:4000/api/blogs/latest', {
+
+
+    useEffect(() => {
+        
+        const abortController = new AbortController()
+        const signal = abortController.signal
+         fetch('/api/blogs/latest', signal,{
             method:'GET',
             headers:{
                 'Accept':'Content-Type',  
@@ -18,14 +22,10 @@ const SingleBlog = (props) => {
         }).then(data => {
             setBlog(data)
         })
-    }
-
-   
-    
-
-    useEffect(() => {
-        fetchSingleData()
-    })
+        return function cleanup(){
+            abortController.abort()
+        }
+    }, [])
   return (
     <div>
        
@@ -34,11 +34,12 @@ const SingleBlog = (props) => {
                 {blog.map(b => (
                     <div key={uuidv4()}>
                         <h2 className='text-dark lead'>{b.title}</h2>
+                        <img src={b.image} alt={b.title} />
                         <p>{(b.body).substring(0, 200)}...</p>
                         {/* <a className="btn" href={`/blogs/${b._id}/${b.createdAt}/${b.slug}`}>Read More</a> */}
                         <Link 
-                            to={`/blogs/${b._id}/${b.createdAt}/${b.slug}`}
-                            state={{id:b._id, createdAt:b.createdAt, slug:b.slug, title:b.title, body:b.categories}}
+                            to={`/blogs/${b.createdAt}/${b._id}/${b.slug}`}
+                            
                         className='btn' >Read More</Link>
                     </div>
                 ))}

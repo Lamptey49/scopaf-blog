@@ -5,8 +5,6 @@ import Footer from '../core/Footer';
 import Header from '../core/Header';
 export default function Signup(props) {
     
-   
-  
     const [values, setValues] = useState({
       fullname:'',
       email:'',
@@ -19,13 +17,13 @@ export default function Signup(props) {
     const handleChange =  event => {
       const value =  event.target.value 
       setValues({  value:value})
-  }
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         const user = {
           fullname:values.fullname || undefined,
           email:values.email || undefined,
-          password: values.password
+          password: values.password || undefined
         }
         create(user).then((data) => {
           if(data && data.error){
